@@ -1,0 +1,166 @@
+<html>
+<head>
+<title>models.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+models.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">django.db </span><span class="s0">import </span><span class="s1">models</span>
+<span class="s0">from </span><span class="s1">django.contrib.auth.models </span><span class="s0">import </span><span class="s1">User  </span><span class="s2"># Import the default User model</span>
+
+
+<span class="s0">class </span><span class="s1">Measure(models.Model):</span>
+    <span class="s1">name = models.CharField(max_length=</span><span class="s3">255</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">'Название'</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Единица измерения&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Единицы измерения&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">Goods(models.Model):</span>
+    <span class="s1">parent = models.ForeignKey(</span><span class="s4">'self'</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Вышестоящий продукт&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True, </span><span class="s1">blank=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">name = models.CharField(verbose_name=</span><span class="s4">&quot;Название&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s0">, </span><span class="s1">default=</span><span class="s4">&quot;Продукт&quot;</span><span class="s1">)</span>
+    <span class="s1">icon_link = models.CharField(verbose_name=</span><span class="s4">&quot;Ссылка на изображение&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True, </span><span class="s1">blank=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">measure = models.ForeignKey(Measure</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Единица измерения&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">is_local = models.BooleanField(verbose_name=</span><span class="s4">&quot;Локальный&quot;</span><span class="s1">)</span>
+    <span class="s1">owner = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Владелец&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True, </span><span class="s1">blank=</span><span class="s0">True</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Продукт&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Продукты&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">RecipesGroup(models.Model):</span>
+    <span class="s1">name = models.CharField(max_length=</span><span class="s3">255</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Название&quot;</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Группа рецептов&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Группы рецептов&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">Recipes(models.Model):</span>
+    <span class="s1">name = models.CharField(</span><span class="s4">&quot;Название&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s1">)</span>
+    <span class="s1">icon_link = models.CharField(</span><span class="s4">&quot;Ссылка на изображение&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">description = models.TextField(</span><span class="s4">&quot;Описание&quot;</span><span class="s1">)</span>
+    <span class="s1">group = models.ForeignKey(RecipesGroup</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Группа&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">is_local = models.BooleanField(</span><span class="s4">&quot;Локальный&quot;</span><span class="s1">)</span>
+    <span class="s1">owner = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Владелец&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+    <span class="s1">cooking_time_min = models.IntegerField(</span><span class="s4">&quot;Время приготовления, от (мин)&quot;</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">cooking_time_max = models.IntegerField(</span><span class="s4">&quot;Время приготовления, до (мин)&quot;</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Рецепт&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Рецепты&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">RecipeGoods(models.Model):</span>
+    <span class="s1">recipe = models.ForeignKey(Recipes</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Рецепт&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">goods = models.ForeignKey(Goods</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Продукт&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">count = models.FloatField(</span><span class="s4">&quot;Количество&quot;</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Продукт для рецепта&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Продукты для рецептов&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">Schedule(models.Model):</span>
+    <span class="s1">recipe = models.ForeignKey(Recipes</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Рецепт&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">date = models.DateField(</span><span class="s4">&quot;Дата&quot;</span><span class="s1">)</span>
+    <span class="s1">family = models.ForeignKey(</span><span class="s4">'Families'</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Семья&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Расписание&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Расписания&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">OrderStatus(models.Model):</span>
+    <span class="s1">name = models.CharField(</span><span class="s4">&quot;Название&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Статус заказа&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Статусы заказов&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">Orders(models.Model):</span>
+    <span class="s1">recipe = models.ForeignKey(Recipes</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Рецепт&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">date = models.DateField(</span><span class="s4">&quot;Дата&quot;</span><span class="s1">)</span>
+    <span class="s1">family = models.ForeignKey(</span><span class="s4">'Families'</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Семья&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">customer = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Заказал&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">related_name=</span><span class="s4">'orders_customer'</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+    <span class="s1">status = models.ForeignKey(OrderStatus</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Статус&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">change_datetime = models.DateTimeField(</span><span class="s4">&quot;Изменено&quot;</span><span class="s1">)</span>
+    <span class="s1">change_user = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Изменил&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">,</span>
+                                    <span class="s1">related_name=</span><span class="s4">'orders_change_user'</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+    <span class="s1">comment = models.TextField(</span><span class="s4">&quot;Комментарий&quot;</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Заказ&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Заказы&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">OrderHistory(models.Model):</span>
+    <span class="s1">order = models.ForeignKey(Orders</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Заказ&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">order_status = models.ForeignKey(OrderStatus</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Статус&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">change_datetime = models.DateTimeField(verbose_name=</span><span class="s4">&quot;Изменено&quot;</span><span class="s1">)</span>
+    <span class="s1">change_user = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Изменил&quot;</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+    <span class="s1">comment = models.TextField(verbose_name=</span><span class="s4">&quot;Комментарий&quot;</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;История заказов&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;История заказов&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">Families(models.Model):</span>
+    <span class="s1">name = models.CharField(verbose_name=</span><span class="s4">&quot;Имя&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s1">)</span>
+    <span class="s1">icon_link = models.CharField(verbose_name=</span><span class="s4">&quot;Ссылка на изображение&quot;</span><span class="s0">, </span><span class="s1">max_length=</span><span class="s3">255</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Семья&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Семьи&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">FamilyMembers(models.Model):</span>
+    <span class="s1">family = models.ForeignKey(Families</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Семья&quot;</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE)</span>
+    <span class="s1">user = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Пользователь&quot;</span><span class="s0">,</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+    <span class="s1">is_chef = models.BooleanField(verbose_name=</span><span class="s4">&quot;Шеф&quot;</span><span class="s1">)</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Член семьи&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Члены семьи&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">FamilyRecipes(models.Model):</span>
+    <span class="s1">family = models.ForeignKey(Families</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Семья&quot;</span><span class="s1">)</span>
+    <span class="s1">recipe = models.ForeignKey(Recipes</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Рецепт&quot;</span><span class="s1">)</span>
+    <span class="s1">add_date = models.DateTimeField(null=</span><span class="s0">True, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Дата добавления&quot;</span><span class="s1">)</span>
+    <span class="s1">is_active = models.BooleanField(verbose_name=</span><span class="s4">&quot;Активный&quot;</span><span class="s0">, </span><span class="s1">default=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">chef = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">null=</span><span class="s0">True, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Шеф рецепта&quot;</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Рецепт семьи&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Рецепты семьи&quot;</span>
+
+
+<span class="s0">class </span><span class="s1">FamilyGoodsInStock(models.Model):</span>
+    <span class="s1">family = models.ForeignKey(Families</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Семья&quot;</span><span class="s1">)</span>
+    <span class="s1">goods = models.ForeignKey(Goods</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Продукт&quot;</span><span class="s1">)</span>
+    <span class="s1">count = models.FloatField(verbose_name=</span><span class="s4">&quot;Количество в наличии&quot;</span><span class="s1">)</span>
+    <span class="s1">change_date = models.DateTimeField(verbose_name=</span><span class="s4">&quot;Изменено&quot;</span><span class="s1">)</span>
+    <span class="s1">change_user = models.ForeignKey(User</span><span class="s0">, </span><span class="s1">on_delete=models.CASCADE</span><span class="s0">, </span><span class="s1">verbose_name=</span><span class="s4">&quot;Изменил&quot;</span><span class="s1">)  </span><span class="s2"># Updated reference</span>
+
+    <span class="s0">class </span><span class="s1">Meta:</span>
+        <span class="s1">verbose_name = </span><span class="s4">&quot;Продукт в наличии в семье&quot;</span>
+        <span class="s1">verbose_name_plural = </span><span class="s4">&quot;Продукты в наличии в семье&quot;</span>
+</pre>
+</body>
+</html>
