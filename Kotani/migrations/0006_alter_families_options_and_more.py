@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Gusto', '0005_alter_families_icon_link_alter_families_name_and_more'),
+        ('Kotani', '0005_alter_families_icon_link_alter_families_name_and_more'),
     ]
 
     operations = [

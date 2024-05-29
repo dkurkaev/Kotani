@@ -1,10 +1,7 @@
 from rest_framework import viewsets, generics
 from .models import Measure, Goods, RecipesGroup, Recipes, RecipeGoods, Schedule, OrderStatus, Orders, OrderHistory, \
     Families, FamilyMembers, FamilyRecipes, FamilyGoodsInStock
-from ._1_serializers import MeasureSerializer, GoodsSerializer, RecipesGroupSerializer, RecipesSerializer, \
-    RecipeGoodsSerializer, ScheduleSerializer, OrderStatusSerializer, OrdersSerializer, \
-    OrderHistorySerializer, FamiliesSerializer, FamilyMembersSerializer, FamilyRecipesSerializer, \
-    FamilyGoodsInStockSerializer
+
 
 
 class MeasureViewSet(viewsets.ModelViewSet):

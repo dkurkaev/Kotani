@@ -176,6 +176,7 @@ class RecipesBatchCreateSchema(BaseModel):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 
 class RecipesBatchUpdateSchema(BaseModel):
@@ -191,20 +192,8 @@ class RecipesBatchUpdateSchema(BaseModel):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
-class RecipesSchema(BaseModel):
-    id: int
-    name: str
-    icon: Optional[str]
-    description: str
-    group: int
-    is_local: bool
-    cooking_time_max: int
-    cooking_time_min: Optional[int]
-    goods: Optional[List[RecipeGoodsSchema]]
-
-    class Config:
-        orm_mode = True
 
 
 class FamiliesSchema(BaseModel):

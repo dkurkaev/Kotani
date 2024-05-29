@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('Gusto', '0003_alter_families_icon_link_and_more'),
+        ('Kotani', '0003_alter_families_icon_link_and_more'),
     ]
 
     operations = [

@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Gusto', '0008_remove_families_icon_link_remove_recipes_icon_link_and_more'),
+        ('Kotani', '0008_remove_families_icon_link_remove_recipes_icon_link_and_more'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='goods',
             name='measure',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='Gusto.measure', verbose_name='Единица измерения'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='Kotani.measure', verbose_name='Единица измерения'),
         ),
     ]

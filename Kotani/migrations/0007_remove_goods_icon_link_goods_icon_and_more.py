@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Gusto', '0006_alter_families_options_and_more'),
+        ('Kotani', '0006_alter_families_options_and_more'),
     ]
 
     operations = [

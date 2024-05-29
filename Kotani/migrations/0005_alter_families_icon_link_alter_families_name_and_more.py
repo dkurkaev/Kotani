@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('Gusto', '0004_alter_goods_icon_link_alter_goods_name_and_more'),
+        ('Kotani', '0004_alter_goods_icon_link_alter_goods_name_and_more'),
     ]
 
     operations = [
@@ -41,17 +41,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='familygoodsinstock',
             name='family',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.families', verbose_name='Семья'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.families', verbose_name='Семья'),
         ),
         migrations.AlterField(
             model_name='familygoodsinstock',
             name='goods',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.goods', verbose_name='Продукт'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.goods', verbose_name='Продукт'),
         ),
         migrations.AlterField(
             model_name='familymembers',
             name='family',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.families', verbose_name='Семья'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.families', verbose_name='Семья'),
         ),
         migrations.AlterField(
             model_name='familymembers',
@@ -76,7 +76,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='familyrecipes',
             name='family',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.families', verbose_name='Семья'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.families', verbose_name='Семья'),
         ),
         migrations.AlterField(
             model_name='familyrecipes',
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='familyrecipes',
             name='recipe',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.recipes', verbose_name='Рецепт'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.recipes', verbose_name='Рецепт'),
         ),
         migrations.AlterField(
             model_name='goods',
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='goods',
             name='measure',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.measure', verbose_name='Единица измерения'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.measure', verbose_name='Единица измерения'),
         ),
         migrations.AlterField(
             model_name='goods',
@@ -116,7 +116,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='goods',
             name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='Gusto.goods', verbose_name='Вышестоящий продукт'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='Kotani.goods', verbose_name='Вышестоящий продукт'),
         ),
         migrations.AlterField(
             model_name='measure',
@@ -141,12 +141,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='orderhistory',
             name='order',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.orders', verbose_name='Заказ'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.orders', verbose_name='Заказ'),
         ),
         migrations.AlterField(
             model_name='orderhistory',
             name='order_status',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.orderstatus', verbose_name='Статус'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.orderstatus', verbose_name='Статус'),
         ),
         migrations.AlterField(
             model_name='orders',
@@ -176,17 +176,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='orders',
             name='family',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.families', verbose_name='Семья'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.families', verbose_name='Семья'),
         ),
         migrations.AlterField(
             model_name='orders',
             name='recipe',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.recipes', verbose_name='Рецепт'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.recipes', verbose_name='Рецепт'),
         ),
         migrations.AlterField(
             model_name='orders',
             name='status',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.orderstatus', verbose_name='Статус'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.orderstatus', verbose_name='Статус'),
         ),
         migrations.AlterField(
             model_name='orderstatus',
@@ -201,12 +201,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recipegoods',
             name='goods',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.goods', verbose_name='Продукт'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.goods', verbose_name='Продукт'),
         ),
         migrations.AlterField(
             model_name='recipegoods',
             name='recipe',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.recipes', verbose_name='Рецепт'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.recipes', verbose_name='Рецепт'),
         ),
         migrations.AlterField(
             model_name='recipes',
@@ -226,7 +226,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recipes',
             name='group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.recipesgroup', verbose_name='Группа'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.recipesgroup', verbose_name='Группа'),
         ),
         migrations.AlterField(
             model_name='recipes',
@@ -261,11 +261,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='schedule',
             name='family',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.families', verbose_name='Семья'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.families', verbose_name='Семья'),
         ),
         migrations.AlterField(
             model_name='schedule',
             name='recipe',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Gusto.recipes', verbose_name='Рецепт'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Kotani.recipes', verbose_name='Рецепт'),
         ),
     ]

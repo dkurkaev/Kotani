@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Gusto', '0009_alter_goods_measure'),
+        ('Kotani', '0009_alter_goods_measure'),
     ]
 
     operations = [
@@ -19,6 +19,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='goods',
             name='measure',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='Gusto.measure', verbose_name='Единица измерения'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='Kotani.measure', verbose_name='Единица измерения'),
         ),
     ]
