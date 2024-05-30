@@ -3,7 +3,8 @@ from ninja import Router
 from .schemas import (
     MeasureSchema, GoodsSchema, RecipesGroupSchema, RecipesSchema, RecipeCreateSchema, RecipeUpdateSchema,
     RecipesBatchCreateSchema, RecipesBatchUpdateSchema,
-    FamiliesSchema, FamilyMembersSchema, FamilyRecipesSchema, FamilyGoodsInStockSchema
+    FamiliesSchema, FamilyMembersSchema, FamilyRecipesSchema, FamilyGoodsInStockSchema,
+    RecipeDetailSchema, GoodsDetail
 )
 from typing import List
 from ...models import Measure, Goods, RecipesGroup, Recipes, Families, FamilyMembers, FamilyRecipes, FamilyGoodsInStock, \
@@ -121,11 +122,39 @@ def list_recipes(request):
     return [RecipesSchema.from_orm(recipe) for recipe in recipes]
 
 
+""" Старый роутер GET для рецепта по id - заменен на детальный красивый
 @router.get("/recipes/{recipe_id}", response=RecipesSchema)
 def get_recipe(request, recipe_id: int):
     recipe = Recipes.objects.get(id=recipe_id)
     return RecipesSchema.from_orm(recipe)
+"""
 
+@router.get("/recipes/{recipe_id}", response=RecipeDetailSchema)
+def recipe_detail(request, recipe_id: int):
+    recipe = Recipes.objects.get(id=recipe_id)
+
+    if recipe.cooking_time_min is not None:
+        cooking_time = f"{recipe.cooking_time_min} - {recipe.cooking_time_max} минут"
+    else:
+        cooking_time = f"{recipe.cooking_time_max} минут"
+
+    goods_details = [
+        GoodsDetail(
+            id=rg.goods.id,
+            good=f"{round(rg.count)} {rg.goods.measure.name} {rg.goods.name}"
+        )
+        for rg in RecipeGoods.objects.filter(recipe=recipe).select_related('goods__measure')
+    ]
+
+    return RecipeDetailSchema(
+        id=recipe.id,
+        name=recipe.name,
+        icon=recipe.icon.url if recipe.icon else "",
+        description=recipe.description,
+        group=str(recipe.group),  # Convert group to string
+        cooking_time=cooking_time,
+        goods=goods_details
+    )
 
 """
 @router.post("/recipes", response=RecipesSchema)

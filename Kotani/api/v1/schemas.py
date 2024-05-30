@@ -37,6 +37,19 @@ class GoodsSchema(BaseModel):
             owner=obj.owner.id if obj.owner else None,
         )
 
+class GoodsDetail(BaseModel):
+    id: int
+    good: str
+
+class RecipeDetailSchema(BaseModel):
+    id: int
+    name: str
+    icon: str
+    description: str
+    group: str  # Assuming group should be a string. If it should be an int, change this to int.
+    cooking_time: str
+    goods: List[GoodsDetail]
+
 
 class RecipesGroupSchema(BaseModel):
     id: int
