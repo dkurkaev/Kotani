@@ -1,0 +1,11 @@
+# Project dependencies
+Django>=3.2,<4.0
+djangorestframework
+django-cors-headers
+psycopg2-binary
+pillow
+
+# Development dependencies
+black
+flake8
+isort
